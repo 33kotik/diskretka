@@ -1,0 +1,3 @@
+/home/alex4/Desktop/diskret/my_set/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/alex4/Desktop/diskret/my_set/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/alex4/Desktop/diskret/my_set/cmake-build-debug/CMakeFiles/my_set.dir
