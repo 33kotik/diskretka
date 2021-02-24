@@ -2,6 +2,7 @@
 #include <bits/stdc++.h>
 #include <math.h>
 #include <exception>
+
 using namespace std;
 vector<double> x(10);
 vector<double> y(10);
@@ -15,14 +16,14 @@ public:
 //    vector
 public:
     //конструкторы и деструкторы
-    my_set(string nn,vector<string> your_elements) {
-        name=nn;
+    my_set(string nn, vector<string> your_elements) {
+        name = nn;
         elements = your_elements;
         cout << "set was made" << endl;
     }
 
     my_set(string nn) {
-        name=nn;
+        name = nn;
         cout << "set was made" << endl;
     }
 
@@ -69,112 +70,147 @@ public:
 //операции над множествами
     //    объединение
     void union_sets(my_set apending_set) {
+
+        int i = 0;
+        int j = 0;
         vector<string> ans;
-        for (auto apending_element : apending_set.elements) {
-            bool flag = true;
-            for (auto my_element :elements) {
-                if (my_element == apending_element) {
-                    flag = false;
-                    break;
-                }
+        while ((i != elements.size()) && (j != apending_set.elements.size())) {
+            if (elements[i] == apending_set.elements[j]) {
+                ans.push_back(elements[i]);
+                i++;
+                j++;
+            } else if (elements[i] > apending_set.elements[j]) {
+                ans.push_back(apending_set.elements[j]);
+                j++;
+            } else if (elements[i] < apending_set.elements[j]) {
+                ans.push_back(elements[i]);
+                i++;
             }
-            if (flag)
-                ans.push_back(apending_element);
         }
-        for (auto apending_element : elements) {
-            cout<<apending_element<<" ";
+        for (; i != elements.size(); i++) {
+            ans.push_back(elements[i]);
         }
+        for (; j != apending_set.elements.size(); j++) {
+            ans.push_back(apending_set.elements[j]);
+        }
+
+//                    sort(ans.begin(), ans.begin() + ans.size());
         for (auto apending_element : ans) {
-            cout<<apending_element<<" ";
+            cout << apending_element << " ";
         }
-        cout <<endl << "union successfully" << endl;
+        cout << endl << "union successfully" << endl;
     }
 
     //    • пересечение
     void intersection_sets(my_set apending_set) {
+
+        int i = 0;
+        int j = 0;
         vector<string> ans;
-        for (auto apending_element : apending_set.elements) {
-            bool flag = true;
-            for (auto my_element :elements) {
-                if (my_element == apending_element) {
-                    flag = false;
-                    break;
-                }
+        while ((i != elements.size()) && (j != apending_set.elements.size())) {
+            if (elements[i] == apending_set.elements[j]) {
+                ans.push_back(elements[i]);
+                i++;
+                j++;
+            } else if (elements[i] > apending_set.elements[j]) {
+
+                j++;
+            } else if (elements[i] < apending_set.elements[j]) {
+                i++;
             }
-            if (!flag)
-                ans.push_back(apending_element);
         }
-//        for (auto element : elements) {
-//            cout<<element<<" ";
-//        }
+//        sort(ans.begin(), ans.begin() + ans.size());
         for (auto element : ans) {
-            cout<<element<<" ";
+            cout << element << " ";
         }
 //        elements = ans;
-        cout <<endl<< "intersection successfully" << endl;
+        cout << endl << "intersection successfully" << endl;
     }
 
 //    • разность
     void difference_sets(my_set difference_set) {
-        vector<string> ans=elements;
-        for (auto difference_element :difference_set.elements) {
-            for (int i = 0; i < ans.size(); i++) {
-                if (ans[i] == difference_element) {
-                    ans.erase(ans.begin() + i);
-                    break;
-                }
+
+        int i = 0;
+        int j = 0;
+        vector<string> ans;
+        while ((i != elements.size()) && (j != difference_set.elements.size())) {
+            if (elements[i] == difference_set.elements[j]) {
+                ans.push_back(elements[i]);
+                i++;
+                j++;
+            } else if (elements[i] > difference_set.elements[j]) {
+                j++;
+            } else if (elements[i] < difference_set.elements[j]) {
+                ans.push_back(elements[i]);
+                i++;
             }
         }
-        for (auto element : ans) {
-            cout<<element<<" ";
+        for (; i != elements.size(); i++) {
+            ans.push_back(elements[i]);
         }
-        cout <<endl<< "difference  successfully" << endl;
+        for (auto element : ans) {
+            cout << element << " ";
+        }
+        cout << endl << "difference  successfully" << endl;
     }
+
 //    • симметрическая разность
     void xor_sets(my_set xor_set) {
-        vector<string> ans=elements;
-        vector<string> ans2=xor_set.elements;
 
-        for (int j = 0; j < ans2.size(); j++) {
-            for (int i = 0; i < ans.size(); i++) {
-                if (ans[i] == ans2[j]) {
-                    ans.erase(ans.begin() + i);
-                    ans2.erase(ans2.begin() + j);
-                    break;
-                }
+        int i = 0;
+        int j = 0;
+        vector<string> ans;
+        while ((i != elements.size()) && (j != xor_set.elements.size())) {
+            if (elements[i] == xor_set.elements[j]) {
 
+                i++;
+                j++;
+            } else if (elements[i] > xor_set.elements[j]) {
+                ans.push_back(xor_set.elements[j]);
+                j++;
+            } else if (elements[i] < xor_set.elements[j]) {
+                ans.push_back(elements[i]);
+                i++;
             }
         }
-        ans.insert(ans.end(), ans2.begin(), ans2.end());
-        for (auto element : ans) {
-            cout<<element<<" ";
+        for (; i != elements.size(); i++) {
+            ans.push_back(elements[i]);
         }
-        cout <<endl<<  "xor successfully" << endl;
+        for (; j != xor_set.elements.size(); j++) {
+            ans.push_back(xor_set.elements[j]);
+        }
+        for (auto element : ans) {
+            cout << element << " ";
+        }
+        cout << endl << "xor successfully" << endl;
     }
 
 //    • проверка включения
     void inclusion_chek_sets(my_set chek_set) {
-        vector<string> ans=elements;
-        for (auto chek_element :chek_set.elements) {
-            bool flag= false;
-            for (int i = 0; i < ans.size(); i++) {
-                if (ans[i] == chek_element) {
-                    flag=true;
-                    break;
-                }
+        int i = 0;
+        int j = 0;
+        vector<string> ans;
+        while ((i != elements.size()) && (j != chek_set.elements.size())) {
+            if (elements[i] == chek_set.elements[j]) {
+                i++;
+                j++;
+            } else if (elements[i] > chek_set.elements[j]) {
+                j++;
+            } else if (elements[i] < chek_set.elements[j]) {
+                i++;
             }
-            if (!flag){
-                cout<<"no"<<endl;
-                return;
-            }
-
         }
-        cout<<"yes"<<endl;
+        if (j == chek_set.elements.size()){
+            cout<<" YES my set inclusion chek set"<<endl;
+        } else
+            cout<<" NO my set don't  inclusion chek set"<<endl;
+
         return;
     }
 
 //    • просмотр элементов существующего множества
     void show_set() {
+        sort(elements.begin(), elements.begin() + elements.size());
         for (auto element : elements) {
             cout << element << endl;
         }
@@ -185,39 +221,40 @@ struct sets {
     vector<my_set> set;
 };
 sets my_sets;
+
 //    просмотр списка существующих множеств
 my_set choose_set() {
     for (int i = 0; i < my_sets.set.size(); i++)
         cout << i << " " << my_sets.set[i].name << endl;
     int ans;
     cin >> ans;
-    if (ans>=0 && ans<my_sets.set.size()) {
+    if (ans >= 0 && ans < my_sets.set.size()) {
         return (my_sets.set[ans]);
-    }
-    else{
-        cout<< " error try again choose"<<endl;
+    } else {
+        cout << " error try again choose" << endl;
         return (choose_set());
     }
 }
+
 int main() {
     string test;
-    vector <string> simple123 ={"1","2","3"};
-    vector <string> simple345 ={"3","4","5"};
-    my_set ss ("simple123",simple123);
-    my_set second ("simple345",simple345);
+    vector<string> simple123 = {"1", "2", "3"};
+    vector<string> simple345 = {"3", "4", "5"};
+    my_set ss("simple123", simple123);
+    my_set second("simple345", simple345);
     my_sets.set.push_back(ss);
     my_sets.set.push_back(second);
 //    getline(cin,test);
 //    cout<<test<<endl;
     cout << "press 0 append_set " << endl <<
-        "press 1 get_power" << endl <<
-        "press 2  append " << endl <<
-        "press 3 my_delete " << endl <<
-        "press 4 check_element_in_set" << endl <<
-        "press 5 union_sets " << endl <<
-        "press 6 intersection_sets" << endl <<
-        "press 7 difference_sets" << endl <<
-        "press 8 xor_sets " << endl <<
+         "press 1 get_power" << endl <<
+         "press 2  append element" << endl <<
+         "press 3 my_delete " << endl <<
+         "press 4 check_element_in_set" << endl <<
+         "press 5 union_sets " << endl <<
+         "press 6 intersection_sets" << endl <<
+         "press 7 difference_sets" << endl <<
+         "press 8 xor_sets " << endl <<
          "press 9 show_set" << endl <<
          "press 10 choose set" << endl <<
          "press 11 inclusion chek set" << endl <<
@@ -228,11 +265,11 @@ int main() {
 //        if (c==100){
 //
 //        }
-        getline(cin,c);
+        getline(cin, c);
         if (c == "0") {
             string s;
             cout << "enter name of new set" << endl;
-            getline(cin,s);
+            getline(cin, s);
             my_sets.set.emplace_back(s);
         }
         if (c == "1") {
@@ -258,34 +295,34 @@ int main() {
         }
         if (c == "5") {
             cout << "choose set" << endl;
-            second=choose_set();
+            second = choose_set();
             ss.union_sets(second);
 
         }
         if (c == "6") {
             cout << "choose set" << endl;
-            second=choose_set();
+            second = choose_set();
             ss.intersection_sets(second);
         }
         if (c == "7") {
             cout << "choose set" << endl;
-            second=choose_set();
+            second = choose_set();
             ss.difference_sets(second);
         }
         if (c == "8") {
             cout << "choose set" << endl;
-            second=choose_set();
+            second = choose_set();
             ss.xor_sets(second);
         }
         if (c == "9") {
             ss.show_set();
         }
         if (c == "10") {
-            ss=choose_set();
+            ss = choose_set();
         }
         if (c == "11") {
             cout << "choose set" << endl;
-            second=choose_set();
+            second = choose_set();
             ss.inclusion_chek_sets(second);
         }
         if (c == "33") {
