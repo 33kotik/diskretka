@@ -19,17 +19,16 @@ public:
     my_set(string nn, vector<string> your_elements) {
         name = nn;
         elements = your_elements;
-        cout << "set was made" << endl;
+//        cout << "set was made" << endl;
     }
 
     my_set(string nn) {
         name = nn;
-        cout << "set was made" << endl;
+//        cout << "set was made" << endl;
     }
 
     ~my_set() {
-        cout << "set deleted" << endl;
-        //        delete(elements);
+
     }
 
     //методы и свойства множества
@@ -57,6 +56,7 @@ public:
         cerr << "element wasn't deleted" << endl;
     }
 
+
     bool check_element_in_set(string element) {
         for (int i = 0; i < elements.size(); i++)
             if (elements[i] == element) {
@@ -69,7 +69,7 @@ public:
 
 //операции над множествами
     //    объединение
-    void union_sets(my_set apending_set) {
+    my_set union_sets(my_set apending_set) {
 
         int i = 0;
         int j = 0;
@@ -98,11 +98,14 @@ public:
         for (auto apending_element : ans) {
             cout << apending_element << " ";
         }
+        my_set answer("(" + name + "+" + apending_set.name+")", ans);
+
         cout << endl << "union successfully" << endl;
+        return (answer);
     }
 
     //    • пересечение
-    void intersection_sets(my_set apending_set) {
+    my_set intersection_sets(my_set apending_set) {
 
         int i = 0;
         int j = 0;
@@ -123,19 +126,20 @@ public:
         for (auto element : ans) {
             cout << element << " ";
         }
-//        elements = ans;
+        my_set answer("(" + name + "|_|" + apending_set.name+")", ans);
         cout << endl << "intersection successfully" << endl;
+        return (answer);
     }
 
 //    • разность
-    void difference_sets(my_set difference_set) {
+    my_set difference_sets(my_set difference_set) {
 
         int i = 0;
         int j = 0;
         vector<string> ans;
         while ((i != elements.size()) && (j != difference_set.elements.size())) {
             if (elements[i] == difference_set.elements[j]) {
-                ans.push_back(elements[i]);
+
                 i++;
                 j++;
             } else if (elements[i] > difference_set.elements[j]) {
@@ -151,11 +155,14 @@ public:
         for (auto element : ans) {
             cout << element << " ";
         }
+        my_set answer("(" + name + "-" + difference_set.name+")", ans);
         cout << endl << "difference  successfully" << endl;
+        return (answer);
+
     }
 
 //    • симметрическая разность
-    void xor_sets(my_set xor_set) {
+    my_set xor_sets(my_set xor_set) {
 
         int i = 0;
         int j = 0;
@@ -182,7 +189,10 @@ public:
         for (auto element : ans) {
             cout << element << " ";
         }
+        my_set answer("(" + name + "_xor_" + xor_set.name +")" , ans);
         cout << endl << "xor successfully" << endl;
+        return (answer);
+
     }
 
 //    • проверка включения
@@ -200,10 +210,10 @@ public:
                 i++;
             }
         }
-        if (j == chek_set.elements.size()){
-            cout<<" YES my set inclusion chek set"<<endl;
+        if (j == chek_set.elements.size()) {
+            cout << " YES my set inclusion chek set" << endl;
         } else
-            cout<<" NO my set don't  inclusion chek set"<<endl;
+            cout << " NO my set don't  inclusion chek set" << endl;
 
         return;
     }
@@ -225,9 +235,12 @@ sets my_sets;
 //    просмотр списка существующих множеств
 my_set choose_set() {
     for (int i = 0; i < my_sets.set.size(); i++)
-        cout << i << " " << my_sets.set[i].name << endl;
+        cout << "press  " << i << " to choose " << my_sets.set[i].name << endl;
     int ans;
-    cin >> ans;
+    string x;
+    getline(cin, x);
+    ans = int(x[0] - '0');
+//    cerr()
     if (ans >= 0 && ans < my_sets.set.size()) {
         return (my_sets.set[ans]);
     } else {
@@ -246,18 +259,21 @@ int main() {
     my_sets.set.push_back(second);
 //    getline(cin,test);
 //    cout<<test<<endl;
-    cout << "press 0 append_set " << endl <<
-         "press 1 get_power" << endl <<
-         "press 2  append element" << endl <<
-         "press 3 my_delete " << endl <<
-         "press 4 check_element_in_set" << endl <<
-         "press 5 union_sets " << endl <<
-         "press 6 intersection_sets" << endl <<
-         "press 7 difference_sets" << endl <<
-         "press 8 xor_sets " << endl <<
-         "press 9 show_set" << endl <<
+    cout << "press 0 append new set " << endl <<
+
+         "press 1 get power" << endl <<
+         "press 2 append element" << endl <<
+         "press 3 delete element " << endl <<
+         "press 4 check element in set" << endl <<
+         "press 5 union sets " << endl <<
+         "press 6 intersection sets" << endl <<
+         "press 7 difference sets" << endl <<
+         "press 8 xor sets " << endl <<
+         "press 9 show set" << endl <<
          "press 10 choose set" << endl <<
          "press 11 inclusion chek set" << endl <<
+         "press 12 delete set" << endl <<
+         "press 13 to see help" << endl <<
          "press 33 exit " << endl;
 
     string c;
@@ -266,11 +282,22 @@ int main() {
 //
 //        }
         getline(cin, c);
+        if (my_sets.set.size() == 0) {
+            string s;
+            cout << "your haven't sets, enter name of new set, or enter <stop_it> to exit" << endl;
+            getline(cin, s);
+            if (s == "stop_it")
+                break;
+            my_sets.set.emplace_back(s);
+            ss = my_sets.set[0];
+            cout << "append successfully" << endl;
+        }
         if (c == "0") {
             string s;
             cout << "enter name of new set" << endl;
             getline(cin, s);
             my_sets.set.emplace_back(s);
+            cout << "append successfully" << endl;
         }
         if (c == "1") {
             ss.get_power();
@@ -280,6 +307,7 @@ int main() {
             string s;
             getline(cin, s);
             ss.append(s);
+
         }
         if (c == "3") {
             string s;
@@ -296,23 +324,23 @@ int main() {
         if (c == "5") {
             cout << "choose set" << endl;
             second = choose_set();
-            ss.union_sets(second);
+            my_sets.set.emplace_back(ss.union_sets(second));
 
         }
         if (c == "6") {
             cout << "choose set" << endl;
             second = choose_set();
-            ss.intersection_sets(second);
+            my_sets.set.emplace_back(ss.intersection_sets(second));
         }
         if (c == "7") {
             cout << "choose set" << endl;
             second = choose_set();
-            ss.difference_sets(second);
+            my_sets.set.emplace_back(ss.difference_sets(second));
         }
         if (c == "8") {
             cout << "choose set" << endl;
             second = choose_set();
-            ss.xor_sets(second);
+            my_sets.set.emplace_back(ss.xor_sets(second));
         }
         if (c == "9") {
             ss.show_set();
@@ -324,6 +352,43 @@ int main() {
             cout << "choose set" << endl;
             second = choose_set();
             ss.inclusion_chek_sets(second);
+        }
+        if (c == "12") {
+            cout << "choose set" << endl;
+            second = choose_set();
+            for (int i = 0; i < my_sets.set.size(); i++)
+                if (second.elements == my_sets.set[i].elements && second.name == my_sets.set[i].name) {
+                    my_sets.set.erase(my_sets.set.begin() + i);
+                    cout << "set deleted successfully " << endl;
+                    break;
+                }
+//            cerr << "element wasn't deleted" << endl;
+//            my_sets.set;
+        }
+        if (c == "13") {
+            cout << "0 append new set добавляет новоё пустое множество в список множеств " << endl << endl <<
+
+                 "1 get power показывает колличество элементов в выбраном множестве  " << endl << endl <<
+                 "2 append element добавляет эллемент в выбраное множество" << endl << endl <<
+                 "3 delete element удаляет еллемент из выбранного множества" << endl << endl <<
+                 "4 check element in set проверяет наличие элемнета в выбранном множестве" << endl << endl <<
+                 "5 union sets выводит объединение выбраного множества  с любым на выбор а также добавляет новое множество с результатом операции"
+                 << endl << endl <<
+                 "6 intersection sets выводит пересечение выбраного множества с любым на выбор а также добавляет новое множество с результатом операции"
+                 << endl << endl <<
+                 "7 difference sets выводит разность выбраного множества с любым на выбор а также добавляет новое множество с результатом операции"
+                 << endl << endl <<
+                 "8 xor sets выводит симметрическую разность выбраного множества с любым на выбор а также добавляет новое множество с результатом операции"
+                 << endl << endl <<
+                 "9 show set показывает эллементы выбранного множества" << endl << endl <<
+                 "10 choose set меняем выбранное множество" << endl << endl <<
+                 "11 inclusion chek set проверка включения в выбранное множество множества на выбор" << endl << endl <<
+                 "12 delete set удаление множества на выбор (после удаления всех множеств можно только ввести новое или завершить программу)"
+                 << endl << endl <<
+                 "13 to see help открывает таблицу с пояснениями " << endl << endl <<
+                 "33 exit завершает програму" << endl << endl <<
+                 "P.S.: для удобства проверки операций над множествами уже добавленны два исходных <semple123> и <semple345 >"
+                 << endl;
         }
         if (c == "33") {
             break;
