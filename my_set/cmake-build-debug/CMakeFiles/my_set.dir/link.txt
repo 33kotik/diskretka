@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/my_set.dir/main.cpp.o  -o my_set 
+/usr/bin/c++ -g CMakeFiles/my_set.dir/main.cpp.o -o my_set 

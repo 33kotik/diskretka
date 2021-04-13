@@ -2,7 +2,10 @@
 #include <bits/stdc++.h>
 #include <math.h>
 #include <exception>
-
+#include <locale.h>
+//#include <Windows.h>
+#include <clocale>
+#include <cstdlib>
 using namespace std;
 vector<double> x(10);
 vector<double> y(10);
@@ -250,6 +253,10 @@ int choose_set() {
 }
 
 int main() {
+
+//    SetConsoleCP(1251);
+//    SetConsoleOutputCP(1251);
+    setlocale(LC_ALL, "RUS");
     string test;
     vector<string> simple123 = {"1", "2", "3"};
     vector<string> simple345 = {"3", "4", "5"};
@@ -258,6 +265,7 @@ int main() {
     my_set second("simple345", simple345);
     my_sets.set.push_back(ss);
     my_sets.set.push_back(second);
+
 //    getline(cin,test);
 //    cout<<test<<endl;
     cout << "press 0 append new set " << endl <<
@@ -278,7 +286,7 @@ int main() {
          "press 33 exit " << endl;
 
     string c;
-    cout<<endl<<endl<<"currently selected <simple123> =['1', '2', '3']";
+    cout<<endl<<"currently selected <simple123> =['1', '2', '3']"<<endl;
     while (true) {
 //        if (c==100){
 //
@@ -309,20 +317,22 @@ int main() {
             string s;
             getline(cin, s);
             bool flag = false;
-            for (int j = 0; j < s.size(); j++) {
-                if (s[j] == '\"' or (int(s[j])<=64)) {
+            for (auto j : s) {
+                if (j == '\"') {
                     flag = true;
                     break;
                 }
+
             }
             if (s.size() > 80)
                 cout << "error element length >80" << endl;
             else if (flag)
-                cout << "error wrong element like \" or russian letters " << endl;
+                cout << "error wrong element like \"  " << endl;
             else
                 ss.append(s);
 
         }
+
         if (c == "3") {
             string s;
             cout << "enter element to delete" << endl;

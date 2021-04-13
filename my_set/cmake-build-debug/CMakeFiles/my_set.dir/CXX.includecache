@@ -15,4 +15,10 @@ math.h
 -
 exception
 -
+locale.h
+-
+clocale
+-
+cstdlib
+-
 
