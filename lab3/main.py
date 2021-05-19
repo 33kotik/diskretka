@@ -1,4 +1,3 @@
-
 def show(card):
     for string in card:
         print(" ".join(string))
@@ -31,22 +30,34 @@ def maze2graph(maze):
     return graph
 
 
+way = []
+
+
 def rec_step(x, y):
     # if count_ways(maze, x, y) == 0:
     #     return 0
-    if x-1<0 or y-1<0 or x+1>=len(maze) or y+1>=len(maze[0]):
+    if x - 1 < 0 or y - 1 < 0 or x + 1 >= len(maze) or y + 1 >= len(maze[0]):
+        maze[x][y] = "_"
         print("человечек выбрался")
         return True
-    maze[x][y] = "_"
+    maze[x][y] = "O"
     if maze[x][y + 1] == '0':
-        rec_step(x, y + 1)
+        if rec_step(x, y + 1):
+            maze[x][y] = "_"
+            return True
     if maze[x][y - 1] == '0':
-        rec_step(x, y - 1)
+        if rec_step(x, y - 1):
+            maze[x][y] = "_"
+            return True
     if maze[x + 1][y] == '0':
-        rec_step(x + 1, y)
+        if rec_step(x + 1, y):
+            maze[x][y] = "_"
+            return True
     if maze[x - 1][y] == '0':
-        rec_step(x - 1, y)
-
+        if rec_step(x - 1, y):
+            maze[x][y] = "_"
+            return True
+    return False
 
 maze = []
 if __name__ == '__main__':
@@ -67,6 +78,6 @@ if __name__ == '__main__':
     maze[y][x] = "*"
     print("вот ваш лаберинт c человеком ")
     show(maze)
-    rec_step(y,x)
+    rec_step(y, x)
     show(maze)
     # print(maze2graph(card))
