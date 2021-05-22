@@ -2,7 +2,7 @@
 #include <bits/stdc++.h>
 #include <math.h>
 #include <exception>
-
+#include <clocale>
 using namespace std;
 vector<int> fact;
 vector<int> fact_velue;
@@ -84,7 +84,6 @@ void H() {
     cout << "press H to call Help" << endl <<
          "press U Число размещений" << endl <<
          "press A Число размещений без повторений" << endl <<
-
          "press P Число перестановок" << endl <<
          "press C Число сочетаний" << endl <<
          "press S Число Стирлинга второго рода " << endl <<
@@ -97,10 +96,14 @@ int main() {
     string c;
     fact.push_back(1);
     fact_velue.push_back(1);
+    setlocale(LC_ALL, "RUS");
     H();
 //    for (int i = 2; i < 10; i++) {
 //        cout << factorial(i) << endl;
 //    }
+    int i=INT32_MAX;
+//    i+=1000;
+    cout<<i;
     while (true) {
         cin>>c;
         int m,n;

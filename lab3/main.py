@@ -61,6 +61,7 @@ def rec_step(x, y):
 
 maze = []
 if __name__ == '__main__':
+
     print("Введите высоту лаберинта ")
     # h = map(int, input().split())
     h = int(input())
