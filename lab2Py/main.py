@@ -20,13 +20,19 @@ def U(n, k):
 
 
 # //Число размещений без повторений A(m,n)
-
+# 4294687295
 def A(m, n):
     ans = 1
-    for k in range(m - n + 1, m + 1):
-        ans *= k
-        if ans.bit_length() > 32:
-            return "bit size error"
+    if n > m:
+        ans = 0
+    else:
+        if n == 0:
+            ans = 1
+        else:
+            for k in range(m - n + 1, m + 1):
+                ans *= k
+                if ans.bit_length() > 32:
+                    return "bit size error"
     return ans
 
 
