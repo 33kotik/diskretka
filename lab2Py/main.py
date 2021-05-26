@@ -3,7 +3,7 @@ fact_velue = [1, 1, 2]
 
 def factorial(n):
     ans = 1
-    for i in range(1, n+1):
+    for i in range(1, n + 1):
         ans *= i
     if ans.bit_length() > 32:
         return "bit size error"
@@ -25,8 +25,8 @@ def A(m, n):
     ans = 1
     for k in range(m - n + 1, m + 1):
         ans *= k
-    if ans.bit_length() > 32:
-        return "bit size error"
+        if ans.bit_length() > 32:
+            return "bit size error"
     return ans
 
 
@@ -49,14 +49,14 @@ def C(m, n):
         return m
     if n > m:
         return 0
-    if n==m or n == 0:
+    if n == m or n == 0:
         return 1
     if n > m - n:
         n = m - n
     a = m - n + 1
     k = a + 1
     for i in range(2, n + 1):
-        a =int( a / i * k + a % i * k / i)
+        a = int(a / i * k + a % i * k / i)
         k += 1
     if a.bit_length() > 32:
         return "bit size error"
@@ -76,18 +76,18 @@ def S(m, n):
     d = min(n, m - n + 1)
     s = max(n, m - n + 1)
     D = []
-    for i in range(d+1):
+    for i in range(d + 1):
         D.append(1)
-    for i in range(2, s+1):
-        for j in range(2, d+1):
+    for i in range(2, s + 1):
+        for j in range(2, d + 1):
             if d == n:
                 D[j] = D[j - 1] + j * D[j]
             else:
                 D[j] = D[j] + i * D[j - 1]
             if D[j].bit_length() > 32:
                 return "bit size error"
-    if D[d ].bit_length() <= 32:
-        return D[d ]
+    if D[d].bit_length() <= 32:
+        return D[d]
     else:
         return "bit size error"
 
@@ -96,7 +96,7 @@ def S(m, n):
 def B(n):
     ans = 0
 
-    for i in range(n+1):
+    for i in range(n + 1):
         tmp = S(n, i)
         if tmp == "bit size error":
             return tmp
@@ -189,5 +189,3 @@ if __name__ == '__main__':
             print("B(", n, ") = ", B(n))
         if c == "33":
             break
-    # print(k.bit_length())
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
